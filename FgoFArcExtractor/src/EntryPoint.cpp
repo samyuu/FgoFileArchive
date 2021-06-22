@@ -205,7 +205,7 @@ namespace FArcExtractor
 				constexpr size_t encryptedDataOffset = 16 /* unencrypted start of header */ + PeepoHappy::Crypto::Aes128IVSize;
 
 				PeepoHappy::Crypto::Aes128IVBytes iv = {};
-				memcpy(iv.data(), outFArc.FileContent.get() + sizeof(iv), sizeof(iv));
+				::memcpy(iv.data(), outFArc.FileContent.get() + sizeof(iv), sizeof(iv));
 
 				PeepoHappy::Crypto::DecryptAes128Cbc(outFArc.FileContent.get() + encryptedDataOffset, outFArc.FileContent.get() + encryptedDataOffset, outFArc.FileSize - encryptedDataOffset, key, iv);
 				readHead = outFArc.FileContent.get() + encryptedDataOffset;
@@ -275,7 +275,7 @@ namespace FArcExtractor
 			}
 			else
 			{
-				std::memcpy(entry.DecompressedFileContent.get(), readHead, entry.UncompressedSize);
+				::memcpy(entry.DecompressedFileContent.get(), readHead, entry.UncompressedSize);
 			}
 		}
 
